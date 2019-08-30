@@ -5,8 +5,6 @@ const defaultState = {
     filter : false,
     lists : [
         {
-          id : 1,
-          name : 'My todays task',
             list: [
                 {
                     id: 1,
@@ -42,12 +40,12 @@ class ListContainer extends Container {
     super(props)
 
     this.state = this.readStorage()
+    console.log(this.state);
   }
 
   readStorage () {
-  // window.localStorage.clear();
     if (window && window.localStorage) {
-      const state = window.localStorage.getItem('appState')
+      const state = window.localStorage.getItem('appState3')
       if (state) {
         return JSON.parse(state)
       }
@@ -60,14 +58,12 @@ class ListContainer extends Container {
 
     if (window && window.localStorage) {
       const state = JSON.stringify(this.state)
-      window.localStorage.setItem('appState', state)
+      window.localStorage.setItem('appState3', state)
     }
   }
-  getSelected(){
-    return this.state.selected
-  }
+
   getList () {
-    return this.state.lists
+    return this.state.lists[this.state.selected].list
   }
   getFilteredList () {
     var sel = this.state.filter;
@@ -75,7 +71,6 @@ class ListContainer extends Container {
       return item.completed === sel || sel ==='all';
     });
   }
-
   setFilter = event => {
    
     if(event.target.value ==="Completed"){
@@ -96,6 +91,7 @@ class ListContainer extends Container {
         filter: 'all',
     }) 
     }
+    console.log(this.state);   
 
 }
 
@@ -114,7 +110,8 @@ class ListContainer extends Container {
         }
       })
       var lists = this.state.lists;
-      lists[this.state.selected].list =list;
+      lists[0].list =list;
+      console.log(lists);
       return { lists }
     })
 
@@ -129,41 +126,10 @@ class ListContainer extends Container {
         id: state.lists[this.state.selected].list.length + 1
       }
       const list = this.state.lists[this.state.selected].list.concat(item)
+      console.log(list);
       var lists = this.state.lists;
-      lists[this.state.selected].list =list;
-      return { lists }
-    })
-
-
-    this.syncStorage()
-  }
-  getName(){
-    return this.state.lists[this.state.selected].name;
-  }
-
-  setSelected = async id => {
-    await this.setState({
-      selected : id,
-    })
-
-
-  }
-  createList = async text => {
-    await this.setState(state => {
-      const item = {
-        id: state.lists.length + 1,
-        name : text,
-        list: [
-          {
-            id: 1,
-            completed: false,
-            text: 'Start'
-          },
-        ],
-       
-      }
-      const lists = this.state.lists.concat(item)
-    
+      lists[0].list =list;
+      console.log(lists);
       return { lists }
     })
 

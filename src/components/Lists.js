@@ -3,16 +3,15 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import TodoItem from './TodoItem'
 
-const TodoList = ({ items, toggleComplete }) => (
+const Lists= ({items, toggle , selected}) => (
   <Wrapper>
     {items.map(item => {
       const onComplete = e => {
-        toggleComplete(item.id)
+        toggle(item.id -1)
       }
 
-      return <TodoItem key={item.id} {...item} onComplete={onComplete} />
+      return <label key={item.id} onClick = {onComplete}>{item.name}</label>
     })}
   </Wrapper>
 )
@@ -20,6 +19,8 @@ const TodoList = ({ items, toggleComplete }) => (
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+
 `
 
-export default TodoList
+export default Lists

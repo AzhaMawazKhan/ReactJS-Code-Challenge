@@ -3,7 +3,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const AddTodo = ({ onAddTodo }) => {
+const AddLists = ({ onAddTodo }) => {
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
       onAddTodo(e.target.value)
@@ -14,7 +14,7 @@ const AddTodo = ({ onAddTodo }) => {
     <Input
       type='text'
       onKeyPress={handleKeyPress}
-      placeholder='Add new todo...'
+      placeholder='Add new List...'
     />
   )
 }
@@ -27,7 +27,7 @@ const Input = styled.input`
   padding: 10px 18px;
   font-size: 24px;
   height: 40px;
-  width: 500px;
+  width: 300px;
   margin-bottom: 16px;
 
   &::placeholder {
@@ -35,4 +35,4 @@ const Input = styled.input`
   }
 `
 
-export default AddTodo
+export default AddLists
